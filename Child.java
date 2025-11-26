@@ -104,4 +104,89 @@ public class Child {
             ? "Early drop-off fee 2%"
             : "Late pick-up fee 2%";
     }
+
+    // Setter methods
+    public void setName(String name) { this.name = name; }
+    public void setBirthYear(int birthYear) { this.birthYear = birthYear; }
+    public void setGender(String gender) { this.gender = gender; }
+    public void setParentName(String parentName) { this.parentName = parentName; }
+    public void setParentPhone(String parentPhone) { this.parentPhone = parentPhone; }
+    public void setParentLanguage(String parentLanguage) { this.parentLanguage = parentLanguage; }
+    public void setHasAllergies(boolean hasAllergies) { this.hasAllergies = hasAllergies; }
+    public void setDaysInDaycare(int daysInDaycare) { this.daysInDaycare = daysInDaycare; }
+    public void setShiftChoice(int shiftChoice) { this.shiftChoice = shiftChoice; }
+    public void setDropOffTime(String dropOffTime) { this.dropOffTime = dropOffTime; }
+    public void setPickUpTime(String pickUpTime) { this.pickUpTime = pickUpTime; }
+
+    // Display method
+    public void displayInfo(int currentYear) {
+        int age = calculateAge(currentYear);
+        double bill = calculateWeeklyBill(age);
+        double discPct = calculateDiscountPercent(bill);
+        double afterDisc = bill * (1 - discPct);
+        double timePct = calculateTimeFeePercent();
+        double total = afterDisc * (1 + timePct);
+
+        System.out.println("\n--- " + name + " ---");
+        System.out.println("Age: " + age + " (" + getAgeStatus(age) + ")");
+        System.out.println("Gender: " + gender);
+        System.out.println("Parent: " + parentName + " | Phone: " + parentPhone);
+        System.out.println("Language: " + parentLanguage);
+        System.out.println("Allergies: " + (hasAllergies ? "Yes" : "No"));
+        System.out.println("Days/Week: " + daysInDaycare);
+        System.out.println("Shift: " + (shiftChoice == 1 ? "Morning" : shiftChoice == 2 ? "Afternoon" : "Full Day"));
+        System.out.println("Drop-off: " + dropOffTime + " | Pick-up: " + pickUpTime);
+        System.out.printf("Weekly Bill: $%.2f → After Discount: $%.2f → Total: $%.2f%n", bill, afterDisc, total);
+    }
+
+    // Static filtering methods
+    public static Child[] filterByAgeStatus(Child[] children, String ageStatus, int currentYear) {
+        java.util.ArrayList<Child> result = new java.util.ArrayList<>();
+        for (Child c : children) {
+            if (c.getAgeStatus(c.calculateAge(currentYear)).equalsIgnoreCase(ageStatus)) {
+                result.add(c);
+            }
+        }
+        return result.toArray(new Child[0]);
+    }
+
+    public static Child[] filterByAllergies(Child[] children, boolean hasAllergies) {
+        java.util.ArrayList<Child> result = new java.util.ArrayList<>();
+        for (Child c : children) {
+            if (c.hasAllergies() == hasAllergies) {
+                result.add(c);
+            }
+        }
+        return result.toArray(new Child[0]);
+    }
+
+    public static Child[] filterByParentLanguage(Child[] children, String language) {
+        java.util.ArrayList<Child> result = new java.util.ArrayList<>();
+        for (Child c : children) {
+            if (c.getParentLanguage().equalsIgnoreCase(language)) {
+                result.add(c);
+            }
+        }
+        return result.toArray(new Child[0]);
+    }
+
+    public static int countByAgeStatus(Child[] children, String ageStatus, int currentYear) {
+        int count = 0;
+        for (Child c : children) {
+            if (c.getAgeStatus(c.calculateAge(currentYear)).equalsIgnoreCase(ageStatus)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int countWithAllergies(Child[] children) {
+        int count = 0;
+        for (Child c : children) {
+            if (c.hasAllergies()) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

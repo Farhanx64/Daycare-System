@@ -1,0 +1,45 @@
+2
+2
+2
+Alice
+1990
+Female
+Lead Teacher
+40
+25.00
+2015
+Bob
+1988
+Male
+Infant Teacher
+38
+22.50
+2018
+Emma
+2020
+Female
+Sarah
+555-1234
+English
+true
+3
+1
+8:00 AM
+5:00 PM
+Jack
+2022
+Male
+John
+555-5678
+Spanish
+false
+2
+2
+9:00 AM
+3:00 PM
+5
+4
+3
+5
+4
+5
